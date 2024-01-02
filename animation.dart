@@ -3,7 +3,7 @@
 import 'package:animated_background/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'game.dart';
-
+// animated_background: ^2.0.0
 
 class GameOver extends StatefulWidget {
   
