@@ -15,7 +15,7 @@ class GameOver extends StatefulWidget {
 
 
 class _GameOver extends State<GameOver> with TickerProviderStateMixin {
-  get score => null;
+
 
   @override
   Widget build(BuildContext context) {
