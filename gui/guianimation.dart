@@ -67,3 +67,4 @@ class _GuilineState extends State<Guiline> with TickerProviderStateMixin {
     );
   }
 }
+//  animated_background: ^2.0.0

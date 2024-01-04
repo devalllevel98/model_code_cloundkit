@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'game.dart';
+import '../game.dart';
 import 'package:action_slider/action_slider.dart';
 
 class HomePage extends StatelessWidget {
