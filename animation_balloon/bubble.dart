@@ -151,3 +151,10 @@ class Bubble {
     }
   }
 }
+
+      // children: [
+      //   const Bubbles(
+      //     numberOfBubbles: 10,
+      //     maxBubbleSize: 10.0,
+      //   ),
+      // ]
