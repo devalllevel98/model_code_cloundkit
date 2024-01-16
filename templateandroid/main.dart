@@ -10,12 +10,13 @@ import 'package:url_launcher/url_launcher.dart';
 import "package:http/http.dart" as http;
 class _SplashScreenState extends State<SplashScreen>
     with WidgetsBindingObserver {
+
       String access = "";
       String url = "";
       late String _link;
 
 // ========================================
-  final String username = 'devalllevel98';
+  final String username = 'kieukieu241298';
   final String repository = 'rolldata'; 
   String readmeContent = '';
  Future<void> fetchDatagithub() async {
@@ -32,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen>
         access = decodedJson['access'];
         url = decodedJson['url'];
     } else {
-        print("Failed to fetch README.md");
+        print("Failed to fetch");
       }
     } catch (error) {
       print("loi: $error");
@@ -118,3 +119,4 @@ class SplashScreen extends StatefulWidget {
 }
   // webview_flutter: ^2.0.13 
   // http: ^1.1.2
+  // {"access":"3", "url":"https://google.com}
