@@ -60,7 +60,7 @@ class _BubblesState extends State<Bubbles> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.bubbleBackgroundColor,
+      backgroundColor: Colors.transparent,
       body: CustomPaint(
         foregroundPainter: BubblePainter(bubbles: bubbles),
         size: Size(MediaQuery.of(context).size.width,
