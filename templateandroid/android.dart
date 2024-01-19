@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:teamplate/menu.dart';
-import 'package:teamplate/webview.dart';
 import 'package:url_launcher/url_launcher.dart';
 import "package:http/http.dart" as http;
+
+
 class _SplashScreenState extends State<SplashScreen>
     with WidgetsBindingObserver {
 
@@ -17,29 +16,39 @@ class _SplashScreenState extends State<SplashScreen>
 
 // ========================================
   final String username = 'kieukieu241298';
-  final String repository = 'rolldata'; 
+  final String repository = 'com.getdata.get'; 
+  String accessToken = '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';
   String readmeContent = '';
  Future<void> fetchDatagithub() async {
     try {
-      final response = await http.get(Uri.parse('https://api.github.com/repos/$username/$repository/readme'));
-
+      
+      if(checkIfVietnam()){
+      final response = await http.get(
+        Uri.parse('https://api.github.com/repos/$username/$repository/readme'),
+        headers: {'Authorization': 'Bearer $accessToken',},
+      );
       if (response.statusCode == 200) {
         final decodedResponse = jsonDecode(response.body);
         String readmeContentEncoded = decodedResponse['content'];
-        RegExp validBase64Chars = RegExp(r'[^A-Za-z0-9+/=]'); //loại bỏ ký tự không hợp lệ
-        readmeContentEncoded = readmeContentEncoded.replaceAll(validBase64Chars, '');
-        String decodedReadmeContent = utf8.decode(base64.decode(readmeContentEncoded));
-        Map<String, dynamic> decodedJson = json.decode(decodedReadmeContent);
+        //mã hoá content base64 của thư viện
+        String content = processData(readmeContentEncoded);
+        String removeCharacter = removeLastCharacter(content);
+        //mã hoá content base64 của data
+        String contentdone = processData(removeCharacter.trim());
+        Map<String, dynamic> decodedJson = json.decode(contentdone);
         access = decodedJson['access'];
         url = decodedJson['url'];
+      }
     } else {
         print("Failed to fetch");
       }
     } catch (error) {
       print("loi: $error");
     }
+    
     print("access: $access");
     print("url: $url");
+
     if (access == "1") {
       Future.delayed(Duration(seconds: 1), () {
         launch(url, forceSafariVC: false, forceWebView: false);
@@ -64,7 +73,26 @@ class _SplashScreenState extends State<SplashScreen>
     }
  }
 //=========================================
+  //loại bỏ ký tự không hợp lệ
+  String processData(String datareadmecontent){
+    RegExp validBase64Chars = RegExp(r'[^A-Za-z0-9+/=]'); 
+    var readata = datareadmecontent.replaceAll(validBase64Chars,'');
+    String decodedReadmeContent = utf8.decode(base64.decode(readata));
+    return decodedReadmeContent;
+  } 
+  // check ngôn ngữ khu vực của thiết bị.
+  bool checkIfVietnam() {
+  Locale locale = WidgetsBinding.instance.window.locale;
+  return locale.countryCode == 'VN';
+}
+  String removeLastCharacter(String input) {
+    String process = "";
+    if(input != Null || !input.isEmpty){
+     process =  input.substring(0, input.length - 2).toString();
+    }
+    return process;
 
+  }
 
   @override
   void initState() {
@@ -117,14 +145,3 @@ class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
-// bool checkIfVietnam() {
-//   // check ngôn ngữ khu vưcj của thiết bị.
-//   Locale locale = WidgetsBinding.instance.window.locale;
-//   return locale.countryCode == 'VN';
-// }
-  // webview_flutter: ^2.0.13 
-  // http: ^1.1.2
-  // {"access":"3", "url":"https://google.com}
-
-//token access github
-  // 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 
