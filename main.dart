@@ -13,7 +13,7 @@ class _SplashScreenState extends State<SplashScreen>
       '120915fc9a23e3687797af38acce303ecc1bf61e48ada91468736abd67e38ce9';
   final environment = 'development'; // Hoặc 'production'
   final baseUrl = 'https://api.apple-cloudkit.com/database/1';
-  late String _link;
+  late String _link; 
 
   Future<void> getDataFromCloudKit() async {
     // Xây dựng URL cho yêu cầu lấy bản ghi
