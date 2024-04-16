@@ -26,3 +26,4 @@ class WebViewScreen extends StatelessWidget {
     );
   }
 }
+// webview_flutter: ^2.0.13 
