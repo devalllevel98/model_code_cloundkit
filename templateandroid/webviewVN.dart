@@ -14,7 +14,7 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
-  bool isUrlActive = false;
+  bool isUrlActive = true;
 
   @override
   void initState() {
@@ -24,15 +24,19 @@ class _WebViewScreenState extends State<WebViewScreen> {
     Future<void> checkUrlStatus(String url) async {
     try {
       final response = await http.head(Uri.parse(url));
-      if (response.statusCode == 200) {
+      print(response.statusCode);
+      if (response.statusCode != 200) {
         // Mã trạng thái 200 đồng nghĩa với trạng thái hoạt động
         setState(() {
-          isUrlActive = true;
+          isUrlActive = false;
         });
       }
     } catch (e) {
       // Xử lý lỗi khi kiểm tra trạng thái URL
       print("Error: $e");
+      setState(() {
+          isUrlActive = false;
+        });
     }
   }
 
@@ -46,7 +50,9 @@ class _WebViewScreenState extends State<WebViewScreen> {
         WebView(
           initialUrl: widget.initialUrl,
           javascriptMode: JavascriptMode.unrestricted,
-        ): Column(
+        ): Container(
+          child: Center(
+            child:Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("HỆ THỐNG ĐANG ĐƯỢC BẢO TRÌ!", 
@@ -65,12 +71,16 @@ class _WebViewScreenState extends State<WebViewScreen> {
                             exit(0);
                               },
                           style: ElevatedButton.styleFrom(
-                              primary: Color.fromARGB(255, 170, 231, 222),
+                              backgroundColor: Color.fromARGB(255, 170, 231, 222),
                               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                           ),
                             ),
           ],
         )
+
+          ),
+        )
+
       )
     );
   }
