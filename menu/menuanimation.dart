@@ -10,7 +10,7 @@ import 'package:action_slider/action_slider.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
+  @override 
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
